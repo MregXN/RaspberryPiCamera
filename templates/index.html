@@ -4,14 +4,40 @@
 -->
 
 <html>
-  <head>
-    <title>MJRoBot Lab Live Streaming</title>
-    <link rel="stylesheet" href='../static/style.css'/>
-  </head>
-  <body>
-    <h1>MJRoBot Lab Live Streaming</h1>
-    <h3><img src="{{ url_for('video_feed') }}" width="50%"></h3>
-    <hr>
-    <p> @2018 Developed by MJRoBot.org</p>
-  </body>
+
+<head>
+  <title>PiCamera Live Streaming</title>
+  <link rel="stylesheet" href='../static/style.css' />
+</head>
+
+<body>
+  <h1>PiCamera Live Streaming</h1>
+  <h3><img src="{{ url_for('video_feed') }}" width="50%"></h3>
+  <button type="button" onclick="picture()">Take Picture!</button>
+  <button type="button" onclick="video()">Record！</button>
+  <hr>
+  <p> @ Mregxn@gmail.com</p>
+
+</body>
+
+<script>
+  var xmlhttp = new XMLHttpRequest();
+
+  function video() {
+    xmlhttp.open("GET", "/api/video", true);
+    xmlhttp.send();
+
+  }
+
+  function picture() {
+    xmlhttp.open("GET", "/api/picture", true);
+    xmlhttp.onreadystatechange = function () {
+      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        window.open('/image/' + xmlhttp.responseText);
+      }
+    };
+    xmlhttp.send();
+  }
+</script>
+
 </html>
